@@ -66,7 +66,7 @@
         button .en { color: #e0e0e0; opacity: 1; }
         button:hover .en { color: #333333; }
 
-        #mensaje-exito { display: none; border: 1px solid #000000; color: #000000; padding: 15px; border-radius: 4px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14px; }
+        #mensaje-exito { display: none; border: 1px solid #000000; color: #000000; padding: 15px; border-radius: 4px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14px; line-height: 1.5; }
         @media (max-width: 480px) { .row { flex-direction: column; gap: 0; } body { padding: 10px; } .container { padding: 15px; } }
 
         /* Modal de Confirmación Plano */
@@ -87,7 +87,10 @@
 <body>
 
 <div class="container">
-    <div id="mensaje-exito">¡Registro enviado correctamente! Muchas gracias. <span class="en">Form submitted successfully! Thank you.</span></div>
+    <div id="mensaje-exito">
+        ¡Registro enviado correctamente! Muchas gracias.<br>
+        <span class="en" style="margin-left: 0;">Form submitted successfully! Thank you.</span>
+    </div>
     
     <form id="formulario-viajeros">
         <h2>Registro de Viajeros</h2>
@@ -135,7 +138,7 @@
             </div>
             <div class="form-group">
                 <label>Segundo Apellido <span class="en">Second Surname:</span><span id="star-apellido" class="req-star">*</span></label>
-                <input type="text" name="Segundo_Apellido" id="field-apellido" placeholder="Obligatorio con DNI / If applicable">
+                <input type="text" name="Segundo_Apellido" id="field-apellido" placeholder="Si procede / If applicable">
             </div>
         </div>
 
@@ -260,13 +263,11 @@
             fieldSoporte.required = true;
             starApellido.style.display = "inline";
             starSoporte.style.display = "inline";
-            fieldApellido.placeholder = "Obligatorio";
         } else {
             fieldApellido.required = false;
             fieldSoporte.required = false;
             starApellido.style.display = "none";
             starSoporte.style.display = "none";
-            fieldApellido.placeholder = "Si procede / If applicable";
         }
     }
 
@@ -317,7 +318,7 @@
         .then(() => {
             modal.style.display = "none";
             formulario.reset();
-            evaluarObligatoriedadDNI(); // Resetea las estrellas y placeholders tras limpiar
+            evaluarObligatoriedadDNI(); // Resetea las estrellas tras limpiar
             selectSexo.style.color = "#8fa0ae"; 
             document.getElementById('mensaje-exito').style.display = 'block';
             btnEnviarFinal.disabled = false;
