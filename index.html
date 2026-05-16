@@ -87,27 +87,27 @@
         .legal-block-en { font-style: normal; font-weight: normal; opacity: 0.85; }
         .legal-title { font-weight: bold; text-transform: uppercase; margin-bottom: 6px; font-size: 11.5px; letter-spacing: normal; }
 
-#mensaje-exito { 
-    display: none; 
-    border: 2px solid #279FF5; /* Línea azul */
-    background-color: #ffffff; 
-    color: #000000; 
-    padding: 25px; 
-    border-radius: 4px; 
-    text-align: center; 
-    font-weight: bold; 
-    margin-bottom: 25px; 
-    font-size: 19px; /* Texto en español más grande */
-    line-height: 1.6; 
-}
+        #mensaje-exito { 
+            display: none; 
+            border: 2px solid #279FF5; /* Línea azul */
+            background-color: #ffffff; 
+            color: #000000; 
+            padding: 25px; 
+            border-radius: 4px; 
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            font-size: 19px; /* Texto en español más grande */
+            line-height: 1.6; 
+        }
 
-/* Forzar que el texto en inglés dentro del mensaje de éxito también sea grande */
-#mensaje-exito .en { 
-    font-size: 17px; 
-    display: block; 
-    margin-top: 5px; 
-    color: #333333; 
-}
+        /* Forzar que el texto en inglés dentro del mensaje de éxito también sea grande */
+        #mensaje-exito .en { 
+            font-size: 17px; 
+            display: block; 
+            margin-top: 5px; 
+            color: #333333; 
+        }
 
         /* Modal de Confirmación Plano */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; padding: 10px; box-sizing: border-box; }
@@ -142,13 +142,11 @@
         <h2>Registro de Viajeros</h2>
         <div class="subtitle">Parte oficial de entrada <span class="en">Guest Registration Form</span></div>
 
-        <!-- ACORDEÓN DE PRIVACIDAD Y SEGURIDAD -->
         <div class="privacy-accordion">
             <div class="accordion-header" id="accordion-toggle">
                 Seguridad y Privacidad de tus datos <span class="en">Data Security & Privacy INFO</span>
             </div>
             <div class="accordion-content" id="accordion-content">
-                <!-- Español -->
                 <div class="lang-section">
                     <strong>Tu seguridad y privacidad son nuestra prioridad</strong><br>
                     Para cumplir con la legislación española (RD 933/2021), debemos registrar a los viajeros antes de su llegada. Tu información se protege así:
@@ -158,7 +156,6 @@
                         <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) y se eliminarán definitivamente tras cumplir el plazo legal.</li>
                     </ul>
                 </div>
-                <!-- Inglés -->
                 <div class="lang-section privacy-en">
                     <strong>Your Security and Privacy Are Our Priority</strong><br>
                     To comply with Spanish law (RD 933/2021), we must register all guests prior to arrival. Your information is protected as follows:
@@ -171,7 +168,6 @@
             </div>
         </div>
 
-        <!-- CAMPOS DEL FORMULARIO -->
         <div class="form-group">
             <label>Nombre <span class="en">First Name:</span></label>
             <input type="text" name="Nombre" required>
@@ -247,12 +243,10 @@
             <input type="tel" name="Telefono" required>
         </div>
 
-        <!-- Contenedor del botón modificado para alineación estrecha y centrada -->
         <div class="btn-container">
             <button type="button" id="btn-revisar">Verificar <span class="en">Review</span></button>
         </div>
 
-        <!-- TEXTO LEGAL REESTRUCTURADO EN DOS BLOQUES INDEPENDIENTES -->
         <div class="legal-container">
             <div class="legal-block-es">
                 <div class="legal-title">Información básica sobre protección de datos:</div>
@@ -267,7 +261,6 @@
     </form>
 </div>
 
-<!-- Ventana Emergente de Confirmación (Modal) -->
 <div id="modal-confirmacion" class="modal">
     <div class="modal-content">
         <h3>Confirmar Datos <span class="en">Confirm Details</span></h3>
@@ -372,7 +365,15 @@
             formulario.reset();
             evaluarObligatoriedadDNI();
             selectSexo.style.color = "#8fa0ae"; 
+            
+            // 1. Mostrar el mensaje de éxito estructurado
             document.getElementById('mensaje-exito').style.display = 'block';
+            
+            // 2. Ocultar de manera automática el mensaje tras 5 segundos (5000ms)
+            setTimeout(() => {
+                document.getElementById('mensaje-exito').style.display = 'none';
+            }, 5000);
+
             btnEnviarFinal.disabled = false;
             btnEnviarFinal.innerText = "Confirmar y Enviar  Confirm and Send";
             window.scrollTo(0, 0);
