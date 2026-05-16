@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Viajeros / Guest Registration</title>
     <style>
-        /* Estilo Sobrio: Estrictamente Blanco y Negro */
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #ffffff; color: #000000; line-height: 1.6; padding: 20px; margin: 0; }
-        .container { max-width: 600px; background: #ffffff; margin: 20px auto; padding: 20px; border: 1px solid #000000; }
+        /* Estilo Sobrio y Tipografía Premium de Sistema */
+        body { 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background-color: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            padding: 20px; 
+            margin: 0; 
+        }
+        .container { max-width: 600px; background: #ffffff; margin: 20px auto; padding: 20px; }
         h2 { text-align: center; color: #000000; margin-bottom: 5px; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
         .subtitle { text-align: center; color: #000000; font-size: 13px; margin-bottom: 30px; border-bottom: 1px solid #000000; padding-bottom: 15px; }
         
+        /* Formateo de texto en inglés - Contraste optimizado */
+        .en { font-style: italic; font-weight: 300; opacity: 0.9; color: #333333; }
+        .privacy-en { font-style: normal; font-weight: normal; opacity: 1; color: #000000; }
+
         /* Acordeón de Privacidad Sencillo */
         .privacy-accordion { border: 1px solid #000000; margin-bottom: 25px; }
         .accordion-header { padding: 10px 15px; font-size: 13px; font-weight: bold; color: #000000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
@@ -22,48 +33,67 @@
         .lang-section { padding: 10px 0; }
         .lang-section:first-child { border-bottom: 1px dashed #000000; }
 
-        /* Formulario Plano */
+        /* Formulario Plano con Casillas Gris Pálido */
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 6px; font-weight: bold; color: #000000; font-size: 13px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #000000; box-sizing: border-box; font-size: 14px; background-color: #ffffff; color: #000000; border-radius: 0; }
-        input:focus, select:focus { outline: 1px solid #000000; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #000000; font-size: 15px; }
+        input, select { width: 100%; padding: 11px; border: none; box-sizing: border-box; font-size: 14px; background-color: #f5f5f5; color: #000000; border-radius: 4px; font-family: inherit; }
+        input:focus, select:focus { outline: 1px solid #000000; background-color: #eaeaea; }
+        
+        /* Estilos para el texto por defecto (Placeholder) */
+        input::placeholder { color: #a0a0a0; opacity: 1; font-weight: 300; }
+        input::-webkit-input-placeholder { color: #a0a0a0; font-weight: 300; }
+        input::-moz-placeholder { color: #a0a0a0; opacity: 1; font-weight: 300; }
+        input:-ms-input-placeholder { color: #a0a0a0; font-weight: 300; }
+        
+        /* Estilo para la opción por defecto en los select */
+        select:invalid, select option[value=""] { color: #a0a0a0; }
+        select option { color: #000000; }
+
         .row { display: flex; gap: 15px; }
         .row .form-group { flex: 1; }
-        .legal-text { font-size: 11px; color: #000000; text-align: justify; border-top: 1px solid #000000; padding-top: 15px; margin-top: 30px; }
         
-        /* Botones Planos */
-        button { width: 100%; padding: 12px; background-color: #000000; border: 1px solid #000000; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; border-radius: 0; text-transform: uppercase; }
-        button:hover { background-color: #ffffff; color: #000000; }
-        #mensaje-exito { display: none; border: 1px solid #000000; color: #000000; padding: 15px; border-radius: 0; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14px; }
+        /* Espaciado del Texto Legal */
+        .legal-text { font-size: 11px; color: #000000; text-align: justify; border-top: 1px solid #000000; padding-top: 25px; margin-top: 45px; }
+        
+        /* Botones Planos con Fondo Aclarado para mejorar contraste del inglés */
+        button { width: 100%; padding: 12px; background-color: #222222; border: 1px solid #222222; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; border-radius: 4px; text-transform: uppercase; font-family: inherit; }
+        button:hover { background-color: #ffffff; color: #202020; border-color: #222222; }
+        
+        /* Ajustar texto inglés específico dentro de botones oscuros para que resalte más */
+        button .en { color: #e0e0e0; opacity: 1; }
+        button:hover .en { color: #333333; }
+
+        #mensaje-exito { display: none; border: 1px solid #000000; color: #000000; padding: 15px; border-radius: 4px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14px; }
         @media (max-width: 480px) { .row { flex-direction: column; gap: 0; } body { padding: 10px; } .container { padding: 15px; } }
 
         /* Modal de Confirmación Plano */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; padding: 10px; box-sizing: border-box; }
-        .modal-content { background-color: #ffffff; margin: 30px auto; padding: 25px; border: 1px solid #000000; max-width: 500px; border-radius: 0; }
+        .modal-content { background-color: #ffffff; margin: 30px auto; padding: 25px; border: 1px solid #000000; max-width: 500px; border-radius: 4px; }
         .modal h3 { margin-top: 0; color: #000000; border-bottom: 1px solid #000000; padding-bottom: 10px; font-size: 18px; text-transform: uppercase; }
         .review-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
         .review-table td { padding: 8px; border-bottom: 1px solid #000000; vertical-align: top; color: #000000; }
         .review-table td:first-child { font-weight: bold; width: 45%; }
         .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-confirmar { background-color: #000000; color: #ffffff; flex: 2; }
-        .btn-confirmar:hover { background-color: #ffffff; color: #000000; }
-        .btn-editar { background-color: #ffffff; color: #000000; border: 1px solid #000000; flex: 1; }
-        .btn-editar:hover { background-color: #000000; color: #ffffff; }
+        .btn-confirmar { background-color: #222222; border-color: #222222; color: #ffffff; flex: 2; border-radius: 4px; }
+        .btn-confirmar:hover { background-color: #ffffff; color: #222222; }
+        .btn-editar { background-color: #ffffff; color: #000000; border: 1px solid #000000; flex: 1; border-radius: 4px; }
+        .btn-editar:hover { background-color: #222222; color: #ffffff; border-color: #222222; }
+        .btn-editar:hover .en { color: #e0e0e0; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="mensaje-exito">¡Registro enviado correctamente! Muchas gracias. / Form submitted successfully! Thank you.</div>
+    <div id="mensaje-exito">¡Registro enviado correctamente! Muchas gracias. / <span class="en">Form submitted successfully! Thank you.</span></div>
     
     <form id="formulario-viajeros">
         <h2>Registro de Viajeros</h2>
-        <div class="subtitle">Parte oficial de entrada / Guest Registration Form</div>
+        <div class="subtitle">Parte oficial de entrada / <span class="en">Guest Registration Form</span></div>
 
         <!-- ACORDEÓN DE PRIVACIDAD Y SEGURIDAD -->
         <div class="privacy-accordion">
             <div class="accordion-header" id="accordion-toggle">
-                Seguridad y Privacidad de tus datos / Data Security & Privacy INFO
+                Seguridad y Privacidad de tus datos / <span class="en">Data Security & Privacy INFO</span>
             </div>
             <div class="accordion-content" id="accordion-content">
                 <!-- Español -->
@@ -77,7 +107,7 @@
                     </ul>
                 </div>
                 <!-- Inglés -->
-                <div class="lang-section">
+                <div class="lang-section privacy-en">
                     <strong>Your Security and Privacy Are Our Priority</strong><br>
                     To comply with Spanish law (RD 933/2021), we must register all guests prior to arrival. Your information is protected as follows:
                     <ul>
@@ -91,99 +121,99 @@
 
         <!-- CAMPOS DEL FORMULARIO -->
         <div class="form-group">
-            <label>Nombre / First Name:</label>
+            <label>Nombre / <span class="en">First Name:</span></label>
             <input type="text" name="Nombre" required>
         </div>
 
         <div class="row">
             <div class="form-group">
-                <label>Primer Apellido / First Surname:</label>
+                <label>Primer Apellido / <span class="en">First Surname:</span></label>
                 <input type="text" name="Primer_Apellido" required>
             </div>
             <div class="form-group">
-                <label>Segundo Apellido / Second Surname:</label>
+                <label>Segundo Apellido / <span class="en">Second Surname:</span></label>
                 <input type="text" name="Segundo_Apellido" placeholder="Si procede / If applicable">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group">
-                <label>Sexo / Sex:</label>
+                <label>Sexo / <span class="en">Sex:</span></label>
                 <select name="Sexo" required>
-                    <option value="">Seleccione... / Select...</option>
-                    <option value="F">Femenino / Female (F)</option>
-                    <option value="M">Masculino / Male (M)</option>
+                    <option value="" disabled selected hidden>Seleccione... / Select...</option>
+                    <option value="F">Femenino / <span class="en">Female (F)</span></option>
+                    <option value="M">Masculino / <span class="en">Male (M)</span></option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Fecha de Nacimiento / Date of Birth:</label>
+                <label>Fecha de Nacimiento / <span class="en">Date of Birth:</span></label>
                 <input type="date" name="Fecha_Nacimiento" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label>País de Nacionalidad / Country of Nationality:</label>
+            <label>País de Nacionalidad / <span class="en">Country of Nationality:</span></label>
             <input type="text" name="Nacionalidad" required>
         </div>
 
         <div class="row">
             <div class="form-group">
-                <label>Tipo de Documento / Document Type:</label>
+                <label>Tipo de Documento / <span class="en">Document Type:</span></label>
                 <select name="Tipo_Documento" required>
-                    <option value="DNI">DNI (España / Spain)</option>
-                    <option value="Pasaporte">Pasaporte / Passport</option>
-                    <option value="Carta de Identidad">Carta de identidad comunitaria / National Identity Card</option>
+                    <option value="DNI">DNI (España / <span class="en">Spain</span>)</option>
+                    <option value="Pasaporte">Pasaporte / <span class="en">Passport</span></option>
+                    <option value="Carta de Identidad">Carta de identidad comunitaria / <span class="en">National Identity Card</span></option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Nº Documento / Document Number:</label>
+                <label>Nº Documento / <span class="en">Document Number:</span></label>
                 <input type="text" name="Numero_Documento" required>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group">
-                <label>Fecha Expedición Doc / Document Issue Date:</label>
+                <label>Fecha Expedición Doc / <span class="en">Document Issue Date:</span></label>
                 <input type="date" name="Fecha_Expedicion_Documento" required>
             </div>
             <div class="form-group">
-                <label>Nº Soporte (Solo DNI español) / Support Number (Only Spanish ID):</label>
+                <label>Nº Soporte (Solo DNI español):</label>
                 <input type="text" name="Numero_Soporte" placeholder="Ej: AAA000123 / IDESP999999">
                 <small style="display: block; font-size: 11px; color: #000000; margin-top: 4px; line-height: 1.2;">
-                    * Se encuentra en el frontal del DNI, arriba a la derecha (3 letras y 6 números). / Found on the front of the Spanish ID, top right.
+                    * Se encuentra en el frontal del DNI, arriba a la derecha (3 letras y 6 números). / <span class="en">Found on the front of the Spanish ID, top right.</span>
                 </small>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Dirección de Residencia Habitual / Home Address:</label>
+            <label>Dirección de Residencia Habitual / <span class="en">Home Address:</span></label>
             <input type="text" name="Direccion_Habitual" required>
         </div>
 
         <div class="form-group">
-            <label>Teléfono de Contacto / Contact Phone Number:</label>
+            <label>Teléfono de Contacto / <span class="en">Contact Phone Number:</span></label>
             <input type="tel" name="Telefono" required>
         </div>
 
-        <div class="legal-text">
-            <strong>Información básica sobre protección de datos:</strong> Los datos personales facilitados serán tratados por el propietario/gestor del alojamiento con la única finalidad de dar cumplimiento a la obligación legal de registro de viajeros y seguridad ciudadana, conforme al Real Decreto 933/2021, de 26 de octubre. Los datos se conservarán durante el plazo legal establecido por la normativa de seguridad aplicable y no serán cedidos a terceros salvo obligación legal. / <strong>Basic information on data protection:</strong> The personal data provided will be processed by the property owner/manager for the sole purpose of complying with the legal obligation regarding guest registration and public safety, in accordance with Royal Decree 933/2021, of October 26. The data will be retained for the legal period established by the applicable safety regulations and will not be transferred to third parties except under legal obligation.
-        </div>
+        <button type="button" id="btn-revisar">Verificar Datos / <span class="en">Review Form</span></button>
 
-        <button type="button" id="btn-revisar">Verificar Datos / Review Form</button>
+        <div class="legal-text">
+            <strong>Información básica sobre protección de datos:</strong> Los datos personales facilitados serán tratados por el propietario/gestor del alojamiento con la única finalidad de dar cumplimiento a la obligación legal de registro de viajeros y seguridad ciudadana, conforme al Real Decreto 933/2021, de 26 de octubre. Los datos se conservarán durante el plazo legal establecido por la normativa de seguridad aplicable y no serán cedidos a terceros salvo obligación legal. / <span class="en"><strong>Basic information on data protection:</strong> The personal data provided will be processed by the property owner/manager for the sole purpose of complying with the legal obligation regarding guest registration and public safety, in accordance with Royal Decree 933/2021, of October 26. The data will be retained for the legal period established by the applicable safety regulations and will not be transferred to third parties except under legal obligation.</span>
+        </div>
     </form>
 </div>
 
 <!-- Ventana Emergente de Confirmación (Modal) -->
 <div id="modal-confirmacion" class="modal">
     <div class="modal-content">
-        <h3>Confirmar Datos / Confirm Details</h3>
-        <p style="font-size: 13px; color: #000000; margin-bottom: 15px;">Por favor, revise que la información coincide exactamente con su documento de identidad: / Please check that the information exactly matches your identity document:</p>
+        <h3>Confirmar Datos / <span class="en">Confirm Details</span></h3>
+        <p style="font-size: 13px; color: #000000; margin-bottom: 15px;">Por favor, revise que la información coincide exactamente con su documento de identidad: / <span class="en">Please check that the information exactly matches your identity document:</span></p>
         
         <table class="review-table" id="tabla-resumen"></table>
 
         <div class="modal-buttons">
-            <button type="button" class="btn-editar" id="btn-cerrar-modal">Modificar / Edit</button>
-            <button type="button" class="btn-confirmar" id="btn-enviar-final">Confirmar y Enviar / Confirm and Send</button>
+            <button type="button" class="btn-editar" id="btn-cerrar-modal">Modificar / <span class="en">Edit</span></button>
+            <button type="button" class="btn-confirmar" id="btn-enviar-final">Confirmar y Enviar / <span class="en">Confirm and Send</span></button>
         </div>
     </div>
 </div>
@@ -201,6 +231,16 @@
             accContent.style.display = "none";
         } else {
             accContent.style.display = "block";
+        }
+    });
+
+    // Cambiar color del texto en el select cuando el usuario elija una opción real
+    const selectSexo = document.querySelector('select[name="Sexo"]');
+    selectSexo.addEventListener('change', function() {
+        if (this.value !== "") {
+            this.style.color = "#000000";
+        } else {
+            this.style.color = "#a0a0a0";
         }
     });
 
@@ -247,6 +287,7 @@
         .then(() => {
             modal.style.display = "none";
             formulario.reset();
+            selectSexo.style.color = "#a0a0a0"; 
             document.getElementById('mensaje-exito').style.display = 'block';
             btnEnviarFinal.disabled = false;
             btnEnviarFinal.innerText = "Confirmar y Enviar / Confirm and Send";
