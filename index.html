@@ -81,11 +81,11 @@
         #btn-revisar .en { color: #333333; opacity: 1; }
         #btn-revisar:hover .en { color: #e0e0e0; }
 
-        /* Estructura del Bloque Legal separado en tres partes */
+        /* Estructura del Bloque Legal separado en dos bloques (Español / Inglés) */
         .legal-container { border-top: 1px solid #000000; padding-top: 25px; margin-top: 45px; font-size: 11px; color: #000000; text-align: justify; }
-        .legal-title { font-weight: bold; text-transform: uppercase; margin-bottom: 12px; font-size: 12px; letter-spacing: 0.5px; }
-        .legal-es { margin-bottom: 14px; }
-        .legal-en { font-style: normal; font-weight: normal; opacity: 0.85; }
+        .legal-block-es { margin-bottom: 20px; }
+        .legal-block-en { font-style: normal; font-weight: normal; opacity: 0.85; }
+        .legal-title { font-weight: bold; text-transform: uppercase; margin-bottom: 6px; font-size: 11.5px; letter-spacing: normal; }
 
         #mensaje-exito { display: none; border: 1px solid #000000; color: #000000; padding: 15px; border-radius: 4px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14px; line-height: 1.5; }
         @media (max-width: 480px) { 
@@ -141,7 +141,7 @@
                     <ul>
                         <li><strong>Circuito 100% privado:</strong> Este formulario es propio. Tus datos viajan cifrados directamente a nuestro correo seguro, sin intermediarios comerciales.</li>
                         <li><strong>Sin fines comerciales:</strong> Solo se recopilan para el registro obligatorio ante las Autoridades de Seguridad (Policía/Guardia Civil). Nunca se usarán para publicidad.</li>
-                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) and se eliminarán definitivamente tras cumplir el plazo legal.</li>
+                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) y se eliminarán definitivamente tras cumplir el plazo legal.</li>
                     </ul>
                 </div>
                 <!-- Inglés -->
@@ -235,18 +235,18 @@
 
         <!-- Contenedor del botón modificado para alineación estrecha y centrada -->
         <div class="btn-container">
-            <button type="button" id="btn-revisar">Verificar Datos <span class="en">Review Form</span></button>
+            <button type="button" id="btn-revisar">Verificar <span class="en">Review</span></button>
         </div>
 
-        <!-- TEXTO LEGAL REESTRUCTURADO EN TRES SECCIONES -->
+        <!-- TEXTO LEGAL REESTRUCTURADO EN DOS BLOQUES INDEPENDIENTES -->
         <div class="legal-container">
-            <div class="legal-title">Información básica sobre protección de datos / Basic information on data protection:</div>
-            
-            <div class="legal-es">
+            <div class="legal-block-es">
+                <div class="legal-title">Información básica sobre protección de datos:</div>
                 Los datos personales facilitados serán tratados por el propietario/gestor del alojamiento con la única finalidad de dar cumplimiento a la obligación legal de registro de viajeros y seguridad ciudadana, conforme al Real Decreto 933/2021, de 26 de octubre. Los datos se conservarán durante el plazo legal establecido por la normativa de seguridad aplicable y no serán cedidos a terceros salvo obligación legal.
             </div>
             
-            <div class="legal-en">
+            <div class="legal-block-en">
+                <div class="legal-title">Basic information on data protection:</div>
                 The personal data provided will be processed by the property owner/manager for the sole purpose of complying with the legal obligation regarding guest registration and public safety, in accordance with Royal Decree 933/2021, of October 26. The data will be retained for the legal period established by the applicable safety regulations and will not be transferred to third parties except under legal obligation.
             </div>
         </div>
