@@ -52,9 +52,6 @@
         .row { display: flex; gap: 15px; }
         .row .form-group { flex: 1; }
         
-        /* Asterisco dinámico para campos condicionales requeridos */
-        .req-star { color: #ff0000; display: none; margin-left: 3px; }
-        
         /* Espaciado del Texto Legal */
         .legal-text { font-size: 11px; color: #000000; text-align: justify; border-top: 1px solid #000000; padding-top: 25px; margin-top: 45px; }
         
@@ -137,7 +134,7 @@
                 <input type="text" name="Primer_Apellido" required>
             </div>
             <div class="form-group">
-                <label>Segundo Apellido <span class="en">(Only Spaniards) :</span><span id="star-apellido" class="req-star">*</span></label>
+                <label>Segundo Apellido <span class="en">(Only Spaniards):</span></label>
                 <input type="text" name="Segundo_Apellido" id="field-apellido">
             </div>
         </div>
@@ -183,10 +180,10 @@
                 <input type="date" name="Fecha_Expedicion_Documento" required>
             </div>
             <div class="form-group">
-                <label>Nº Soporte (Solo DNI español):<span id="star-soporte" class="req-star">*</span></label>
+                <label>Nº Soporte (Solo DNI español):</label>
                 <input type="text" name="Numero_Soporte" id="field-soporte" placeholder="Ej: AAA000123 / IDESP999999">
                 <small style="display: block; font-size: 11px; color: #000000; margin-top: 4px; line-height: 1.2;">
-                    * Se encuentra en el frontal del DNI, arriba a la derecha (3 letras y 6 números). <span class="en">Found on the front of the Spanish ID, top right.</span>
+                    Se encuentra en el frontal del DNI, arriba a la derecha (3 letras y 6 números). <span class="en">Found on the front of the Spanish ID, top right.</span>
                 </small>
             </div>
         </div>
@@ -254,20 +251,14 @@
     const selectDocumento = document.getElementById('select-documento');
     const fieldApellido = document.getElementById('field-apellido');
     const fieldSoporte = document.getElementById('field-soporte');
-    const starApellido = document.getElementById('star-apellido');
-    const starSoporte = document.getElementById('star-soporte');
 
     function evaluarObligatoriedadDNI() {
         if (selectDocumento.value === "DNI") {
             fieldApellido.required = true;
             fieldSoporte.required = true;
-            starApellido.style.display = "inline";
-            starSoporte.style.display = "inline";
         } else {
             fieldApellido.required = false;
             fieldSoporte.required = false;
-            starApellido.style.display = "none";
-            starSoporte.style.display = "none";
         }
     }
 
@@ -318,7 +309,7 @@
         .then(() => {
             modal.style.display = "none";
             formulario.reset();
-            evaluarObligatoriedadDNI(); // Resetea las estrellas tras limpiar
+            evaluarObligatoriedadDNI(); // Resetea la obligatoriedad interna tras limpiar
             selectSexo.style.color = "#8fa0ae"; 
             document.getElementById('mensaje-exito').style.display = 'block';
             btnEnviarFinal.disabled = false;
