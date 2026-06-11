@@ -39,7 +39,7 @@
         input, select { width: 100%; padding: 11px; border: none; box-sizing: border-box; font-size: 18px; background-color: #e8f4fd; color: #000000; border-radius: 4px; font-family: inherit; }
         input:focus, select:focus { outline: 1px solid #000000; background-color: #d4eafd; }
         
-        /* Estilos para las zonas grandes de carga de archivos (estilo dropzone) */
+        /* Estilos para las zonas grandes de carga de archivos (Zonas cuadradas celestes) */
         .file-uploader-container {
             display: flex;
             flex-direction: column;
@@ -51,31 +51,26 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #f2f2f2; /* Gris claro */
-            border: 2px dashed #b5b5b5; /* Borde discontinuo de dropzone */
+            background-color: #e8f4fd; /* Celeste claro idéntico a las casillas */
+            border: none; /* Sin bordes de guiones */
             color: #000000;
-            padding: 25px 15px;
+            padding: 40px 15px; /* Mayor altura interna para forma más cuadrada */
             border-radius: 12px; 
             cursor: pointer;
             width: 100%;
             box-sizing: border-box;
             text-align: center;
-            transition: background-color 0.2s, border-color 0.2s;
+            transition: background-color 0.2s;
         }
-        /* Efecto visual cuando se arrastra un archivo encima */
-        .custom-file-box.dragover {
-            background-color: #d4eafd;
-            border-color: #279FF5;
-        }
-        .custom-file-box:hover {
-            background-color: #e9e9e9;
-            border-color: #000000;
+        /* Efecto visual al arrastrar encima o pasar el ratón */
+        .custom-file-box.dragover, .custom-file-box:hover {
+            background-color: #d4eafd; /* Celeste un toque más oscuro */
         }
         .custom-file-box .box-icon {
-            font-size: 42px; 
-            margin-bottom: 10px; 
+            font-size: 54px; /* Icono ampliado significativamente */
+            margin-bottom: 12px; 
             line-height: 1;
-            pointer-events: none; /* Evita interferencias en el arrastre */
+            pointer-events: none;
         }
         .custom-file-box .box-text {
             font-size: 14px;
@@ -190,8 +185,8 @@
             .accordion-header::after { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); }
             .subtitle { font-size: 15px; margin-bottom: 25px; }
             h2 { font-size: 22px; }
-            .custom-file-box { padding: 20px 10px; }
-            .custom-file-box .box-icon { font-size: 36px; }
+            .custom-file-box { padding: 30px 10px; }
+            .custom-file-box .box-icon { font-size: 46px; }
             .custom-file-box .en-btn { display: inline; margin-left: 2px; font-size: 12.5px; }
         }
     </style>
@@ -219,7 +214,7 @@
                     <ul>
                         <li><strong>Circuito 100% privado:</strong> Este formulario es propio. Tus datos viajan cifrados directamente a nuestro correo seguro, sin intermediarios comerciales.</li>
                         <li><strong>Sin fines comerciales:</strong> Solo se recopilan para el registro obligatorio ante las Autoridades de Seguridad (Policía/Guardia Civil). Nunca se usarán para publicidad.</li>
-                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) and se eliminarán definitivamente tras cumplir el plazo legal.</li>
+                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) y se eliminarán definitivamente tras cumplir el plazo legal.</li>
                     </ul>
                 </div>
                 <div class="lang-section privacy-en">
@@ -335,9 +330,9 @@
                 </div>
             </div>
             
-            <small style="display: block; font-size: 11px; color: #000000; margin-top: 12px; line-height: 1.3; text-align: left;">
+            <small style="display: block; font-size: 13px; color: #000000; margin-top: 14px; line-height: 1.4; text-align: left;">
                 Si le preocupa la privacidad puede enviar los archivos a través de WhatsApp con visualización única al <strong>+34 635445923</strong>.
-                <span class="en" style="display: block; margin-left: 0; margin-top: 2px;">If you are concerned about privacy, you can send the files via WhatsApp using the view-once feature to <strong>+34 635445923</strong>.</span>
+                <span class="en" style="display: block; margin-left: 0; margin-top: 3px; font-size: 12px;">If you are concerned about privacy, you can send the files via WhatsApp using the view-once feature to <strong>+34 635445923</strong>.</span>
             </small>
         </div>
 
@@ -453,7 +448,6 @@
         dropzoneReverso.addEventListener(eventName, prevenirPorDefecto, false);
     });
 
-    // Añadir/quitar clases visuales al arrastrar sobre las zonas
     ['dragenter', 'dragover'].forEach(eventName => {
         dropzoneFrontal.addEventListener(eventName, () => dropzoneFrontal.classList.add('dragover'), false);
         dropzoneReverso.addEventListener(eventName, () => dropzoneReverso.classList.add('dragover'), false);
@@ -464,12 +458,11 @@
         dropzoneReverso.addEventListener(eventName, () => dropzoneReverso.classList.remove('dragover'), false);
     });
 
-    // Capturar el archivo soltado
     dropzoneFrontal.addEventListener('drop', function(e) {
         const dt = e.dataTransfer;
         const files = dt.files;
         if (files.length > 0) {
-            inputFrontal.files = files; // Vincula el archivo arrastrado al input input original
+            inputFrontal.files = files;
             manejarTextoEstado(inputFrontal, statusFrontal);
         }
     }, false);
@@ -478,11 +471,10 @@
         const dt = e.dataTransfer;
         const files = dt.files;
         if (files.length > 0) {
-            inputReverso.files = files; // Vincula el archivo arrastrado al input original
+            inputReverso.files = files;
             manejarTextoEstado(inputReverso, statusReverso);
         }
     }, false);
-
 
     // Lógica del Formulario y Modal
     const formulario = document.getElementById('formulario-viajeros');
@@ -499,7 +491,7 @@
             
             formData.forEach((valor, llave) => {
                 const nombreLimpio = llave.replace(/_/g, " ");
-                const fila = `<tr><td>${nombreLimpio}:</td><td>${valor || '---'}</td></tr>`;
+                const fila = `<tr><td>${nombreLinter}:</td><td>${valor || '---'}</td></tr>`;
                 tablaResumen.innerHTML += fila;
             });
 
@@ -518,7 +510,6 @@
         modal.style.display = "none";
     });
 
-    // Convertir imágenes para el envío seguro a Sheets
     function convertirABase64(file) {
         return new Promise((resolve, reject) => {
             if (!file) {
