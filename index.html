@@ -39,8 +39,48 @@
         input, select { width: 100%; padding: 11px; border: none; box-sizing: border-box; font-size: 18px; background-color: #e8f4fd; color: #000000; border-radius: 4px; font-family: inherit; }
         input:focus, select:focus { outline: 1px solid #000000; background-color: #d4eafd; }
         
-        /* Integración de los botones de carga de archivos en celeste */
-        input[type="file"] { padding: 8px; font-size: 14px; cursor: pointer; }
+        /* Estilos para los botones de adjuntos personalizados */
+        .file-uploader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .custom-file-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e8f4fd; /* Celeste claro idéntico a las casillas */
+            color: #000000;
+            padding: 11px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap; /* Evita que el texto se rompa en dos filas */
+            transition: background-color 0.2s;
+        }
+        .custom-file-btn:hover {
+            background-color: #d4eafd; /* Un toque más oscuro al pasar el ratón */
+        }
+        .custom-file-btn .en-btn {
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0.85;
+            color: #333333;
+            margin-left: 4px;
+        }
+        .file-status-text {
+            font-size: 12px;
+            color: #666666;
+            margin-top: 6px; /* Posicionado directamente debajo del botón */
+            padding-left: 2px;
+            word-break: break-all;
+        }
         
         /* Estilos para el texto por defecto (Placeholder) */
         input::placeholder { color: #8fa0ae; opacity: 1; font-weight: 300; }
@@ -134,6 +174,8 @@
             .accordion-header::after { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); }
             .subtitle { font-size: 15px; margin-bottom: 25px; }
             h2 { font-size: 22px; }
+            .custom-file-btn { font-size: 13px; padding: 12px 10px; }
+            .custom-file-btn .en-btn { display: inline; margin-left: 2px; font-size: 12.5px; }
         }
     </style>
 </head>
@@ -250,15 +292,27 @@
             <input type="tel" name="Telefono" required>
         </div>
 
-        <!-- SECCIÓN DE ADJUNTOS INCORPORADA -->
+        <!-- SECCIÓN DE ADJUNTOS OPTIMIZADA -->
         <div class="row">
             <div class="form-group">
                 <label>Foto Documento Frontal <span class="en">ID Front Photo:</span></label>
-                <input type="file" id="foto-frontal" accept="image/jpeg, image/jpg, image/png">
+                <div class="file-uploader-container">
+                    <label for="foto-frontal" class="custom-file-btn">
+                        <span>📷 Subir Frontal<span class="en-btn">/ Upload Front</span></span>
+                    </label>
+                    <input type="file" id="foto-frontal" accept="image/jpeg, image/jpg, image/png" style="display: none;">
+                    <div class="file-status-text" id="status-frontal">No adjuntada / Not attached</div>
+                </div>
             </div>
             <div class="form-group">
-                <label>Foto Reverso / Pasaporte <span class="en">ID Back / Passport Photo:</span></label>
-                <input type="file" id="foto-reverso" accept="image/jpeg, image/jpg, image/png">
+                <label>Foto Reverso / Pasaporte <span class="en">ID Back / Passport:</span></label>
+                <div class="file-uploader-container">
+                    <label for="foto-reverso" class="custom-file-btn">
+                        <span>📷 Subir Reverso<span class="en-btn">/ Upload Back</span></span>
+                    </label>
+                    <input type="file" id="foto-reverso" accept="image/jpeg, image/jpg, image/png" style="display: none;">
+                    <div class="file-status-text" id="status-reverso">No adjuntada / Not attached</div>
+                </div>
             </div>
         </div>
 
@@ -337,6 +391,32 @@
     selectDocumento.addEventListener('change', evaluarObligatoriedadDNI);
     evaluarObligatoriedadDNI();
 
+    // Actualizar el texto dinámico debajo de los botones personalizados de adjuntos
+    const inputFrontal = document.getElementById('foto-frontal');
+    const inputReverso = document.getElementById('foto-reverso');
+    const statusFrontal = document.getElementById('status-frontal');
+    const statusReverso = document.getElementById('status-reverso');
+
+    inputFrontal.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            statusFrontal.innerHTML = `📄 ${this.files[0].name}`;
+            statusFrontal.style.color = "#000000";
+        } else {
+            statusFrontal.innerHTML = "No adjuntada / Not attached";
+            statusFrontal.style.color = "#666666";
+        }
+    });
+
+    inputReverso.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            statusReverso.innerHTML = `📄 ${this.files[0].name}`;
+            statusReverso.style.color = "#000000";
+        } else {
+            statusReverso.innerHTML = "No adjuntada / Not attached";
+            statusReverso.style.color = "#666666";
+        }
+    });
+
     // Lógica del Formulario y Modal
     const formulario = document.getElementById('formulario-viajeros');
     const modal = document.getElementById('modal-confirmacion');
@@ -356,8 +436,8 @@
                 tablaResumen.innerHTML += fila;
             });
 
-            const fileFrontal = document.getElementById('foto-frontal').files[0];
-            const fileReverso = document.getElementById('foto-reverso').files[0];
+            const fileFrontal = inputFrontal.files[0];
+            const fileReverso = inputReverso.files[0];
             tablaResumen.innerHTML += `<tr><td>Foto Frontal:</td><td>${fileFrontal ? fileFrontal.name : 'No adjuntada / Not attached'}</td></tr>`;
             tablaResumen.innerHTML += `<tr><td>Foto Reverso / Pasaporte:</td><td>${fileReverso ? fileReverso.name : 'No adjuntada / Not attached'}</td></tr>`;
             
@@ -394,8 +474,8 @@
         btnEnviarFinal.innerText = "Enviando...  Sending...";
         
         try {
-            const fileFrontal = document.getElementById('foto-frontal').files[0];
-            const fileReverso = document.getElementById('foto-reverso').files[0];
+            const fileFrontal = inputFrontal.files[0];
+            const fileReverso = inputReverso.files[0];
             
             const datosFrontal = await convertirABase64(fileFrontal);
             const datosReverso = await convertirABase64(fileReverso);
@@ -421,8 +501,12 @@
             
             modal.style.display = "none";
             formulario.reset();
-            document.getElementById('foto-frontal').value = "";
-            document.getElementById('foto-reverso').value = "";
+            inputFrontal.value = "";
+            inputReverso.value = "";
+            statusFrontal.innerHTML = "No adjuntada / Not attached";
+            statusFrontal.style.color = "#666666";
+            statusReverso.innerHTML = "No adjuntada / Not attached";
+            statusReverso.style.color = "#666666";
             evaluarObligatoriedadDNI();
             selectSexo.style.color = "#8fa0ae";
             
