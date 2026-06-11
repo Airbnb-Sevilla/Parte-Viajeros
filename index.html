@@ -211,17 +211,17 @@
                 <div class="lang-section">
                     Para cumplir con la legislación española (RD 933/2021), debemos registrar a los viajeros antes de su llegada. Tu información se protege así:
                     <ul>
-                        <li><strong>Circuito 100% privado:</strong> Este formulario es propio. Tus datos viajan cifrados directamente a mi correo personal seguro, sin intermediarios comerciales.</li>
-                        <li><strong>Sin fines comerciales:</strong> Solo se recopilan para el registro obligatorio ante las Autoridades de Seguridad (Policía/Guardia Civil). Nunca se usarán para publicidad.</li>
-                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad (RGPD) y se eliminarán definitivamente tras cumplir el plazo legal.</li>
+                        <li><strong>Circuito cifrado punto a punto:</strong> Tus datos e imágenes viajan blindados directamente al sistema de gestión de la propiedad sin intermediarios comerciales ni almacenamiento en servidores externos.</li>
+                        <li><strong>Sin fines comerciales:</strong> Solo se recopilan para el registro obligatorio ante las Autoridades de Seguridad (Policía/Guardia Civil). Nunca se usarán para publicidad o marketing.</li>
+                        <li><strong>Conservación limitada:</strong> Se guardan bajo estricta confidencialidad de acuerdo con el RGPD y se eliminarán de forma definitiva una vez venza el plazo legal exigido.</li>
                     </ul>
                 </div>
                 <div class="lang-section privacy-en">
                     To comply with Spanish law (RD 933/2021), we must register all guests prior to arrival. Your information is protected as follows:
                     <ul>
-                        <li><strong>100% Private Loop:</strong> This form belongs strictly to me. Your data is encrypted and sent directly to my own personal secure email without commercial third parties.</li>
-                        <li><strong>No Commercial Use:</strong> Data is collected solely for mandatory registration with State Security Forces. We will never use it for advertising.</li>
-                        <li><strong>Secure Retention:</strong> Stored under strict confidentiality (GDPR), it will be permanently deleted once the legal retention period expires.</li>
+                        <li><strong>End-to-end encrypted loop:</strong> Your data and images are fully encrypted and sent directly to the property's management system, completely bypassing third-party vendors and external database logging.</li>
+                        <li><strong>No Commercial Use:</strong> Information is collected strictly for mandatory check-in documentation with State Security Forces. It will never be used for marketing or advertising.</li>
+                        <li><strong>Secure Retention:</strong> Processed in full compliance with GDPR, your records are handled under strict confidentiality and permanently deleted once the legal holding period expires.</li>
                     </ul>
                 </div>
             </div>
@@ -489,7 +489,7 @@
             
             formData.forEach((valor, llave) => {
                 const nombreLimpio = llave.replace(/_/g, " ");
-                const fila = `<tr><td>${nombreLinter}:</td><td>${valor || '---'}</td></tr>`;
+                const fila = `<tr><td>${nombreLimpio}:</td><td>${valor || '---'}</td></tr>`;
                 tablaResumen.innerHTML += fila;
             });
 
